@@ -8,17 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis = ["🚘", "✈️", "🚆", "🚌", "🚒",
-                  "🚛", "🦼", "🛵", "🚔", "🚞",
-                  "🚠", "🚋", "🚄", "🚝", "🚈",
-                  "🚊", "🚉", "🛫", "🛬", "💺",
-                  "⛴", "🚢", "🛶", "🚤", "🛳",
-                  "🚲"]
+    var vehicleEmojis = ["🚘", "✈️", "🚆", "🚌", "🚒",
+                         "🚛", "🦼", "🛵", "🚔", "🚞",
+                         "🚠", "🚋", "🚄", "🚝", "🚈",
+                         "🚊", "🚉", "🛫", "🛬", "💺",
+                         "⛴", "🚢", "🛶", "🚤", "🛳",
+                         "🚲"]
     
+    var faceEmojis = ["😀", "😃", "😄", "😅", "😂",
+                      "🤣", "🥲", "😊", "😇", "😍",
+                      "🥰", "😘", "😗", "😉", "😌",
+                      "😋", "😛", "🤩", "🥳", "🙁",
+                      "😎", "🥸", "😔", "🥺"]
+    
+    var planetEmojis = ["🌵", "🎄", "🌲", "🌳", "🌴",
+                        "🌱", "🌿", "☘️", "🍀", "🎍",
+                        "🪴", "🎋", "🍃", "🌹", "🍁",
+                        "🍄", "🌾", "💐", "🌷", "🥀",
+                        "🌺", "🌼", "🌻", "🪵", "🍇"]
+    
+    @State var emojis: [String]
     @State var emojiCount = 4
+
+    init() {
+        emojis = vehicleEmojis
+    }
     
     var body: some View {
         VStack {
+            Text("Memorize!")
+                .font(.largeTitle)
+            
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
                     ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
@@ -32,33 +52,55 @@ struct ContentView: View {
             Spacer()
             
             HStack {
-                remove
+                vehicle
                 Spacer()
-                add
+                face
+                Spacer()
+                planet
             }
-            .font(.largeTitle)
         }
         .padding()
     }
     
-    var remove: some View {
+    var vehicle: some View {
         Button {
-            if emojiCount > 1 {
-                emojiCount -= 1
-            }
+            setupEmojis(vehicleEmojis)
         } label: {
-            Image(systemName: "minus.circle")
+            VStack {
+                Image(systemName: "car")
+                    .font(.largeTitle)
+                Text("Vehicles")
+            }
         }
     }
     
-    var add: some View {
+    var face: some View {
         Button {
-            if emojiCount < emojis.count {
-                emojiCount += 1
-            }
+            setupEmojis(faceEmojis)
         } label: {
-            Image(systemName: "plus.circle")
+            VStack {
+                Image(systemName: "face.smiling")
+                    .font(.largeTitle)
+                Text("Faces")
+            }
         }
+    }
+    
+    var planet: some View {
+        Button {
+            setupEmojis(planetEmojis)
+        } label: {
+            VStack {
+                Image(systemName: "sun.max")
+                    .font(.largeTitle)
+                Text("Planets")
+            }
+        }
+    }
+    
+    func setupEmojis(_ emojis: [String]) {
+        self.emojis = emojis.shuffled()
+        self.emojiCount = Int.random(in: 4...emojis.count)
     }
 }
 
