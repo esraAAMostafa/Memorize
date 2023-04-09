@@ -17,3 +17,22 @@ Stanford CS193p to learn SwiftUI
     takes the number of GridItem() that is needed to be fit in vertical space
     * LazyVGrid(columns: GridItem(.adaptive(minimum: 20, maximum: <#T##CGFloat#>)))
     customize the GridItem width to minimum size and fill the vertical space with as much as GridItem it can fill.
+
+### Lecture 3
+* MVVM ->. view is declarative, it reflects what ever you declare in the model 
+* MVC ->. view is imperative, you need to call functions one after another to build your UI 
+
+* In SwiftUI the view is build from one place "body var" and build one time all components when  "body var" is being redrawing
+
+* In Generic world the name used to refer to generic type is called "type parameter" Ex. Element
+    * `onTapGesture` is example of variables of type function `() -> Void`
+
+* Instance member is  any function, constant or variable that is defined inside class
+
+* proprieties are vars and lets inside class or struct 
+
+* proprieties initializer is assigning value to propriety using an equal sign 
+
+* static function / variable called "type function / type variable or type propriety" because we are trying to emphasize  that this function is actually a function on the very type class, not instances of the type, but the type itself has this function or this variable  
+
+* The type function / propriety is only exist once in the entire app while the normal properties and functions is created newly with every instance 
