@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     
     static let emojis = ["😀", "😃", "😄", "😅", "😂",
                          "🤣", "🥲", "😊", "😇", "😍",
@@ -21,10 +21,14 @@ class EmojiMemoryGame {
         }
     }
     
-    private var model: MemoryGame<String> = createCardContent()
+    @Published private var model: MemoryGame<String> = createCardContent()
 
-    var card: Array<MemoryGame<String>.Card> {
+    var cards: Array<MemoryGame<String>.Card> {
         model.cards
     }
-
+    
+    // MARK: - intention(s)
+    func choose(_ card: MemoryGame<String>.Card) {
+        model.choose(card)
+    }
 }

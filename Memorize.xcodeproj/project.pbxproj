@@ -99,9 +99,9 @@
 			isa = PBXGroup;
 			children = (
 				CB92E04C29B1D7D400BD8926 /* MemorizeApp.swift */,
-				8575278429E2E1D700452CF0 /* MemoryGame.swift */,
-				8575278629E2E43800452CF0 /* EmojiMemoryGame.swift */,
 				CB92E04E29B1D7D400BD8926 /* ContentView.swift */,
+				8575278629E2E43800452CF0 /* EmojiMemoryGame.swift */,
+				8575278429E2E1D700452CF0 /* MemoryGame.swift */,
 				CB92E05029B1D7D700BD8926 /* Assets.xcassets */,
 				CB92E05229B1D7D700BD8926 /* Preview Content */,
 			);

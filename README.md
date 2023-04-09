@@ -36,3 +36,23 @@ Stanford CS193p to learn SwiftUI
 * static function / variable called "type function / type variable or type propriety" because we are trying to emphasize  that this function is actually a function on the very type class, not instances of the type, but the type itself has this function or this variable  
 
 * The type function / propriety is only exist once in the entire app while the normal properties and functions is created newly with every instance 
+
+### Lecture 4
+* View model need to behave like ObservableObject to publish change to the View when the Mode is changed 
+
+* To Publish the change you have multiple ways:
+    1 - Call ObjectWillChange.send() in the place where the change will occur which will cause redraw of the all screen once
+    2- add @Published key word before the propriety the will change and cause the ui to change
+
+* @ObservedObject means when something change in this propriety redraw this view inter body 
+
+* in Enum to loop over all cases you can make it behaves like CaseIterable 
+ Ex:
+    `enum testModel: CaseIterable { 
+     `case x
+     `case y 
+     `case z 
+    `}
+    `for test in testModel.allCases {} `
+
+stoped at 51:00

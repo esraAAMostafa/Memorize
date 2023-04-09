@@ -8,129 +8,51 @@
 import SwiftUI
 
 struct ContentView: View {
-    var vehicleEmojis = ["🚘", "✈️", "🚆", "🚌", "🚒",
-                         "🚛", "🦼", "🛵", "🚔", "🚞",
-                         "🚠", "🚋", "🚄", "🚝", "🚈",
-                         "🚊", "🚉", "🛫", "🛬", "💺",
-                         "⛴", "🚢", "🛶", "🚤", "🛳",
-                         "🚲"]
-    
-    var faceEmojis = ["😀", "😃", "😄", "😅", "😂",
-                      "🤣", "🥲", "😊", "😇", "😍",
-                      "🥰", "😘", "😗", "😉", "😌",
-                      "😋", "😛", "🤩", "🥳", "🙁",
-                      "😎", "🥸", "😔", "🥺"]
-    
-    var planetEmojis = ["🌵", "🎄", "🌲", "🌳", "🌴",
-                        "🌱", "🌿", "☘️", "🍀", "🎍",
-                        "🪴", "🎋", "🍃", "🌹", "🍁",
-                        "🍄", "🌾", "💐", "🌷", "🥀",
-                        "🌺", "🌼", "🌻", "🪵", "🍇"]
-    
-    @State var emojis: [String]
-    @State var emojiCount = 4
 
-    init() {
-        emojis = vehicleEmojis
-    }
-    
+    @ObservedObject var viewModel: EmojiMemoryGame
+
     var body: some View {
-        VStack {
-            Text("Memorize!")
-                .font(.largeTitle)
-            
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
-                        CardView(content: emoji)
-                            .aspectRatio(2/3, contentMode: .fit)
-                    }
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                ForEach(viewModel.cards) { card in
+                    CardView(card: card)
+                        .aspectRatio(2/3, contentMode: .fit)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
                 }
             }
-            .foregroundColor(.red)
-
-            Spacer()
-            
-            HStack {
-                vehicle
-                Spacer()
-                face
-                Spacer()
-                planet
-            }
         }
+        .foregroundColor(.red)
         .padding()
-    }
-    
-    var vehicle: some View {
-        Button {
-            setupEmojis(vehicleEmojis)
-        } label: {
-            VStack {
-                Image(systemName: "car")
-                    .font(.largeTitle)
-                Text("Vehicles")
-            }
-        }
-    }
-    
-    var face: some View {
-        Button {
-            setupEmojis(faceEmojis)
-        } label: {
-            VStack {
-                Image(systemName: "face.smiling")
-                    .font(.largeTitle)
-                Text("Faces")
-            }
-        }
-    }
-    
-    var planet: some View {
-        Button {
-            setupEmojis(planetEmojis)
-        } label: {
-            VStack {
-                Image(systemName: "sun.max")
-                    .font(.largeTitle)
-                Text("Planets")
-            }
-        }
-    }
-    
-    func setupEmojis(_ emojis: [String]) {
-        self.emojis = emojis.shuffled()
-        self.emojiCount = Int.random(in: 4...emojis.count)
     }
 }
 
 struct CardView: View {
-    
-    var content: String
-    @State var isFaceUp: Bool = true
+    let card: MemoryGame<String>.Card
     
     var body: some View {
         ZStack {
             let shape = RoundedRectangle(cornerRadius: 20)
-            if isFaceUp {
+            if card.isFaceUp {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
-                Text(content).font(.largeTitle)
+                Text(card.content).font(.largeTitle)
             } else {
                 shape.fill()
+                shape.strokeBorder(lineWidth: 3)
             }
-        }
-        .onTapGesture {
-            isFaceUp = !isFaceUp
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let game = EmojiMemoryGame()
+
+        ContentView(viewModel: game)
             .preferredColorScheme(.dark)
-        ContentView()
+        ContentView(viewModel: game)
             .preferredColorScheme(.light)
     }
 }
