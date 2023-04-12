@@ -55,4 +55,5 @@ Stanford CS193p to learn SwiftUI
     `}
     `for test in testModel.allCases {} `
 
-stoped at 51:00
+* swift can detect changes in struct but can't do it in class that's why models is defined as structs 
+    we use this advantage in only redraw the body of view when the struct has actual change 

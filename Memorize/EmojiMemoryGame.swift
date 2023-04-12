@@ -27,7 +27,7 @@ class EmojiMemoryGame: ObservableObject {
         model.cards
     }
     
-    // MARK: - intention(s)
+    // MARK: - intent(s)
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
